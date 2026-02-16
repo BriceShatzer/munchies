@@ -30,3 +30,8 @@ export interface PriceRangesResponse {
 export interface RestaurantsResponse {
   restaurants: Restaurant[];
 }
+
+export interface OpenStatusResponse {
+  restaurant_id: string;
+  is_currently_open: boolean;
+}
