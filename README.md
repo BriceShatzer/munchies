@@ -46,31 +46,17 @@ Shared constants used across the app are defined in `config.ts` at the project r
 
 ## Notes  
 
-- **NO HOURS API** - the "Opens tomorrow at 12 pm" is the default and [hardcoded in RestaurantCard](](https://github.com/BriceShatzer/munchies/blob/8800e98c88a6b100d76b7dbfa6247c31c7b8f001/app/components/restaurant/RestaurantCard.tsx#L63) )   
-- swagger docs about the price api is incomplete. Doesn't talk about getting all the available price options by calling `/price-range/`    
+- There is no data on each restaurant's hours, so the "Opens tomorrow at 12 pm" that appears on closed ones that are closed is [hardcoded in the RestaurantCard](https://github.com/BriceShatzer/munchies/blob/main/app/components/restaurant/RestaurantCard.tsx#L63). Ideally, the hours for each restaurant would be included as part of the restaurant list response, but could also potentially be part off a more robust `.../api/open/{id}` endpoint.   
+- The [swagger docs](https://work-test-web-2024-eze6j4scpq-lz.a.run.app/api-docs/#/default/get_price_range__id_) about the price api is incomplete. Doesn't talk about getting all the available price options by calling `/price-range/`    
 - We currently have to query for each restaurant's open status individually. Ideally, the open status would be included in the restaurant list response. Alternatively, the `.../api/open/{id}` endpoint could be upgraded to support an empty call (`.../api/open/`) that returns a collection of restaurant IDs with their corresponding open status.
-- all the image files are massive
+- All of the image files are massive.
 
 
 Things that I'd spend more time on:  
-- digging deeper into the [font](https://stackoverflow.com/a/36412339/1608016)  
-- there's currently no sort of rate limiting for anything anywhere
-- do something about the image file size
-- env or shared variables (`DEFAULT_TTL`, )
+- The font doesn't feel right, (on the mobile splash in particular). I definitely want to dig deeper into [using macOS's system font](https://stackoverflow.com/a/36412339/1608016)  
+- There is currently no sort of rate limiting for anything anywhere, so implement either a middleware to deal with it or ensure infrastructure is in place to prevent those issues from even reaching the app. 
+- Those image file sizes are brutal on load. Something would need to be done about those. 
 
-
-
-
-<!-- 
-> **Discussion Topics for Follow-up:**
-> - Why did you choose your specific architecture (separate apps vs full-stack framework)?
-> - How did you implement the caching strategy?
-> - How would you approach testing this proxy application?
-> - What would you improve given more time?
-> - How would you handle scaling this proxy to handle high traffic?
-> - How would you structure the codebase for a team?
-> - What production concerns would you have with this proxy setup?
--->
 
 
 <br />
