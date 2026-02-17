@@ -13,11 +13,9 @@ export default function RestaurantGrid({
 }: RestaurantGridProps) {
   // Sort: open restaurants first, then closed
   const sorted = [...restaurants].sort((a, b) => {
-    const aOpen = a.is_open ?? null;
-    const bOpen = b.is_open ?? null;
-    if (aOpen === bOpen) return 0;
-    if (aOpen === true) return -1;
-    if (bOpen === true) return 1;
+    if (a.is_open === b.is_open) return 0;
+    if (a.is_open) return -1;
+    if (b.is_open) return 1;
     return 0;
   });
 
