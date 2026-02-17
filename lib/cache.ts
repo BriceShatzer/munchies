@@ -5,7 +5,9 @@ interface CacheEntry<T> {
 
 const store = new Map<string, CacheEntry<unknown>>();
 
-const DEFAULT_TTL = 5 * 60 * 1000; // 5 minutes
+import { CACHE_TTL_SECONDS } from "@/lib/config";
+
+const DEFAULT_TTL = CACHE_TTL_SECONDS * 1000;
 
 export function cacheGet<T>(key: string): T | null {
   const entry = store.get(key);

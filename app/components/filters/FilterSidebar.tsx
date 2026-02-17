@@ -2,6 +2,7 @@
 
 import styles from "./FilterSidebar.module.css";
 import { Filter, PriceRange } from "@/lib/types";
+import { DELIVERY_TIMES } from "@/lib/config";
 
 interface FilterSidebarProps {
   filters: Filter[];
@@ -13,13 +14,6 @@ interface FilterSidebarProps {
   onToggleDeliveryTime: (time: string) => void;
   onTogglePriceRange: (id: string) => void;
 }
-
-const DELIVERY_TIMES = [
-  { label: "0-10 min", value: "0-10" },
-  { label: "10-30 min", value: "10-30" },
-  { label: "30-60 min", value: "30-60" },
-  { label: "1 hour+", value: "60+" },
-];
 
 export default function FilterSidebar({
   filters,

@@ -1,6 +1,7 @@
 import { cacheGet, cacheSet, cacheGetStale } from "@/lib/cache";
+import { CACHE_TTL_SECONDS } from "@/lib/config";
 
-const API_BASE = "https://work-test-web-2024-eze6j4scpq-lz.a.run.app/api";
+const API_BASE = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api`;
 
 export async function fetchWithCache<T>(
   endpoint: string,
@@ -15,7 +16,7 @@ export async function fetchWithCache<T>(
   try {
     // Fetch from external API
     const response = await fetch(`${API_BASE}${endpoint}`, {
-      next: { revalidate: 300 }, 
+      next: { revalidate: CACHE_TTL_SECONDS },
     });
 
     if (!response.ok) {
