@@ -3,10 +3,10 @@
 import { useState, useCallback } from "react";
 import styles from "./MainContent.module.css";
 import Header from "./Header";
-import FilterSidebar from "./FilterSidebar";
-import CategoryCarousel from "./CategoryCarousel";
-import RestaurantGrid from "./RestaurantGrid";
-import MobileSplash from "./MobileSplash";
+import FilterSidebar from "../filters/FilterSidebar";
+import CategoryCarousel from "../filters/CategoryCarousel";
+import RestaurantGrid from "../restaurant/RestaurantGrid";
+import MobileSplash from "../MobileSplash";
 import { Restaurant, Filter, PriceRange } from "@/lib/types";
 
 interface MainContentProps {

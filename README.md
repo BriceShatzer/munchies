@@ -1,16 +1,16 @@
 
 
 Notes:  
- - organize the either components into categories  
-layout/ - Header, MainContent  
-restaurant/ - RestaurantCard, RestaurantGrid  
-filters/ - FilterSidebar, CategoryCarousel  
-MobileSplash.tsx 
-or into folders ( RestaurantCard/ - index.tsx, RestaurantCard.module.css )
-
 - swagger docs about the price api is wrong ?
 
-
+> **Discussion Topics for Follow-up:**
+> - Why did you choose your specific architecture (separate apps vs full-stack framework)?
+> - How did you implement the caching strategy?
+> - How would you approach testing this proxy application?
+> - What would you improve given more time?
+> - How would you handle scaling this proxy to handle high traffic?
+> - How would you structure the codebase for a team?
+> - What production concerns would you have with this proxy setup?
 
 ---  
 

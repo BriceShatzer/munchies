@@ -1,4 +1,4 @@
-import MainContent from "./components/MainContent";
+import MainContent from "./components/layout/MainContent";
 import { fetchWithCache } from "@/lib/api-client";
 import {
   RestaurantsResponse,
