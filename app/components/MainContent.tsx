@@ -1,0 +1,165 @@
+"use client";
+
+import { useState, useEffect, useCallback } from "react";
+import styles from "./MainContent.module.css";
+import Header from "./Header";
+import FilterSidebar from "./FilterSidebar";
+import CategoryCarousel from "./CategoryCarousel";
+import RestaurantGrid from "./RestaurantGrid";
+import MobileSplash from "./MobileSplash";
+import { Restaurant, Filter, PriceRange } from "@/lib/types";
+
+interface MainContentProps {
+  restaurants: Restaurant[];
+  filters: Filter[];
+  priceRanges: PriceRange[];
+}
+
+const DELIVERY_TIME_RANGES: Record<string, [number, number]> = {
+  "0-10": [0, 10],
+  "10-30": [10, 30],
+  "30-60": [30, 60],
+  "60+": [60, Infinity],
+};
+
+export default function MainContent({
+  restaurants,
+  filters,
+  priceRanges,
+}: MainContentProps) {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedDeliveryTimes, setSelectedDeliveryTimes] = useState<string[]>(
+    []
+  );
+  const [selectedPriceRanges, setSelectedPriceRanges] = useState<string[]>([]);
+  const [openStatuses, setOpenStatuses] = useState<Record<string, boolean>>({});
+
+  // Fetch open status for all restaurants
+  useEffect(() => {
+    async function fetchOpenStatuses() {
+      const results = await Promise.allSettled(
+        restaurants.map(async (r) => {
+          const res = await fetch(`/api/open/${r.id}`);
+          if (!res.ok) return { id: r.id, isOpen: false };
+          const data = await res.json();
+          return { id: r.id, isOpen: data.is_currently_open };
+        })
+      );
+
+      const statuses: Record<string, boolean> = {};
+      for (const result of results) {
+        if (result.status === "fulfilled") {
+          statuses[result.value.id] = result.value.isOpen;
+        }
+      }
+      setOpenStatuses(statuses);
+    }
+
+    fetchOpenStatuses();
+  }, [restaurants]);
+
+  const toggleCategory = useCallback((id: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
+    );
+  }, []);
+
+  const toggleDeliveryTime = useCallback((time: string) => {
+    setSelectedDeliveryTimes((prev) =>
+      prev.includes(time) ? prev.filter((t) => t !== time) : [...prev, time]
+    );
+  }, []);
+
+  const togglePriceRange = useCallback((id: string) => {
+    setSelectedPriceRanges((prev) =>
+      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
+    );
+  }, []);
+
+  // Filter restaurants
+  const filteredRestaurants = restaurants.filter((restaurant) => {
+    // Food category filter
+    if (selectedCategories.length > 0) {
+      const hasMatch = restaurant.filter_ids.some((fid) =>
+        selectedCategories.includes(fid)
+      );
+      if (!hasMatch) return false;
+    }
+
+    // Delivery time filter
+    if (selectedDeliveryTimes.length > 0) {
+      const inRange = selectedDeliveryTimes.some((key) => {
+        const [min, max] = DELIVERY_TIME_RANGES[key];
+        return (
+          restaurant.delivery_time_minutes >= min &&
+          restaurant.delivery_time_minutes < max
+        );
+      });
+      if (!inRange) return false;
+    }
+
+    // Price range filter
+    if (selectedPriceRanges.length > 0) {
+      if (!selectedPriceRanges.includes(restaurant.price_range_id))
+        return false;
+    }
+
+    return true;
+  });
+
+  return (
+    <MobileSplash>
+      <div className={styles.wrapper}>
+        <Header />
+        <div className={styles.layout}>
+          <FilterSidebar
+            filters={filters}
+            priceRanges={priceRanges}
+            selectedCategories={selectedCategories}
+            selectedDeliveryTimes={selectedDeliveryTimes}
+            selectedPriceRanges={selectedPriceRanges}
+            onToggleCategory={toggleCategory}
+            onToggleDeliveryTime={toggleDeliveryTime}
+            onTogglePriceRange={togglePriceRange}
+          />
+          <main className={styles.main}>
+            {/* Mobile delivery time filter */}
+            <div className={styles.mobileFilters}>
+              <h3 className={styles.mobileFilterTitle}>DELIVERY TIME</h3>
+              <div className={styles.mobileFilterPills}>
+                {[
+                  { label: "0-10 min", value: "0-10" },
+                  { label: "10-30 min", value: "10-30" },
+                  { label: "30-60 min", value: "30-60" },
+                  { label: "1 hour+", value: "60+" },
+                ].map((time) => (
+                  <button
+                    key={time.value}
+                    className={`${styles.mobileFilterPill} ${
+                      selectedDeliveryTimes.includes(time.value)
+                        ? styles.mobileFilterPillActive
+                        : ""
+                    }`}
+                    onClick={() => toggleDeliveryTime(time.value)}
+                  >
+                    {time.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <CategoryCarousel
+              filters={filters}
+              selectedCategories={selectedCategories}
+              onToggleCategory={toggleCategory}
+            />
+            <RestaurantGrid
+              restaurants={filteredRestaurants}
+              openStatuses={openStatuses}
+            />
+          </main>
+        </div>
+      </div>
+    </MobileSplash>
+  );
+}
