@@ -15,7 +15,7 @@ export async function fetchWithCache<T>(
   try {
     // Fetch from external API
     const response = await fetch(`${API_BASE}${endpoint}`, {
-      next: { revalidate: 0 }, // Don't cache at Next.js level, we handle it
+      next: { revalidate: 300 }, 
     });
 
     if (!response.ok) {
@@ -33,7 +33,7 @@ export async function fetchWithCache<T>(
       return { data: stale, fromCache: true };
     }
 
-    // No cache available, re-throw
+    // No cache available, throw error
     throw error;
   }
 }
