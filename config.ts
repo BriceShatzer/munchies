@@ -1,3 +1,5 @@
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://work-test-web-2024-eze6j4scpq-lz.a.run.app";
+
 export const CACHE_TTL_SECONDS = 5 * 60; // 5 minutes
 
 export const DELIVERY_TIMES: { label: string; value: string; range: [number, number] }[] = [

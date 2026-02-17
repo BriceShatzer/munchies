@@ -1,7 +1,7 @@
 import { cacheGet, cacheSet, cacheGetStale } from "@/lib/cache";
-import { CACHE_TTL_SECONDS } from "@/lib/config";
+import { API_BASE_URL, CACHE_TTL_SECONDS } from "@/config";
 
-const API_BASE = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api`;
+const API_BASE = `${API_BASE_URL}/api`;
 
 export async function fetchWithCache<T>(
   endpoint: string,

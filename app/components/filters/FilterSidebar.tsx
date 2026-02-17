@@ -2,7 +2,7 @@
 
 import styles from "./FilterSidebar.module.css";
 import { Filter, PriceRange } from "@/lib/types";
-import { DELIVERY_TIMES } from "@/lib/config";
+import { DELIVERY_TIMES } from "@/config";
 
 interface FilterSidebarProps {
   filters: Filter[];

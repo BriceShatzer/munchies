@@ -1,5 +1,6 @@
 import type { ImageLoaderProps } from 'next/image'
+import { API_BASE_URL } from "@/config";
 
 export default function imageLoader({ src, width, quality }: ImageLoaderProps): string {
-  return `${process.env.NEXT_PUBLIC_API_BASE_URL}${src}?w=${width}&q=${quality ?? 75}`
+  return `${API_BASE_URL}${src}?w=${width}&q=${quality ?? 75}`
 }

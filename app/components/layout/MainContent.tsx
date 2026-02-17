@@ -8,7 +8,7 @@ import CategoryCarousel from "../filters/CategoryCarousel";
 import RestaurantGrid from "../restaurant/RestaurantGrid";
 import MobileSplash from "../MobileSplash";
 import { Restaurant, Filter, PriceRange } from "@/lib/types";
-import { DELIVERY_TIMES, DELIVERY_TIME_RANGES } from "@/lib/config";
+import { DELIVERY_TIMES, DELIVERY_TIME_RANGES } from "@/config";
 
 interface MainContentProps {
   restaurants: Restaurant[];
