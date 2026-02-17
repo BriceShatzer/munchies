@@ -18,6 +18,10 @@
 }
 
 @media (max-width: 768px) {
+  .heading {
+    font-size: 20px;
+    letter-spacing: -0.5px;
+  }
   .grid {
     grid-template-columns: 1fr;
   }

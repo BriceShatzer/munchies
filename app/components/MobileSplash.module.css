@@ -23,12 +23,6 @@
   padding-top:40px;
 }
 
-.logoText {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-white);
-}
-
 .heroText {
   display: flex;
   flex-direction: column;

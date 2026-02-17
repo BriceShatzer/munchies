@@ -117,7 +117,9 @@
   }
 
   .imageWrapper {
-    width: 120px;
-    height: 120px;
+    top: -15%;
+    right: -5%;
+    width: 140px;
+    height: 140px;
   }
 }

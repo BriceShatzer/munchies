@@ -1,0 +1,20 @@
+.header {
+    padding: 48px 0;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-top:40px;
+    }
+    .logo > svg {
+        height: 24px;
+        width: auto;
+    }
+
+}   
+    
+    
+          
