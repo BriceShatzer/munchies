@@ -1,8 +1,20 @@
+## Scripts
 
+| Script | Command | Description |
+|--------|---------|-------------|
+| `dev` | `npm run dev` | Starts the Next.js development server |
+| `build` | `npm run build` | Creates a production build |
+| `start` | `npm run start` | Runs the production server (requires `build` first) |
+| `lint` | `npm run lint` | Runs ESLint |
+| `test` | `npm run test` | Runs the Jest test suite |
+| `test:watch` | `npm run test:watch` | Runs Jest in watch mode |
+
+---
 
 Notes:  
-- swagger docs about the price api is wrong ?
+- swagger docs about the price api is incomplete. Doesn't talk about getting all the available price options by calling `/price-range/`   
 
+<!-- 
 > **Discussion Topics for Follow-up:**
 > - Why did you choose your specific architecture (separate apps vs full-stack framework)?
 > - How did you implement the caching strategy?
@@ -11,6 +23,7 @@ Notes:
 > - How would you handle scaling this proxy to handle high traffic?
 > - How would you structure the codebase for a team?
 > - What production concerns would you have with this proxy setup?
+-->
 
 ---  
 
