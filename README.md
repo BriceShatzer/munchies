@@ -1,4 +1,17 @@
 
+
+Notes:  
+ - organize the either components into categories  
+layout/ - Header, MainContent  
+restaurant/ - RestaurantCard, RestaurantGrid  
+filters/ - FilterSidebar, CategoryCarousel  
+MobileSplash.tsx 
+or into folders ( RestaurantCard/ - index.tsx, RestaurantCard.module.css )
+
+- swagger docs about the price api is wrong ?
+
+
+
 ---  
 
 # create-next-app default readme  
