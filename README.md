@@ -46,15 +46,15 @@ Shared constants used across the app are defined in `config.ts` at the project r
 
 ## Notes  
 
-- There is no data on each restaurant's hours, so the "Opens tomorrow at 12 pm" that appears on closed ones that are closed is [hardcoded in the RestaurantCard](https://github.com/BriceShatzer/munchies/blob/main/app/components/restaurant/RestaurantCard.tsx#L63). Ideally, the hours for each restaurant would be included as part of the restaurant list response, but could also potentially be part off a more robust `.../api/open/{id}` endpoint.   
-- The [swagger docs](https://work-test-web-2024-eze6j4scpq-lz.a.run.app/api-docs/#/default/get_price_range__id_) about the price api is incomplete. Doesn't talk about getting all the available price options by calling `/price-range/`    
+- There is no data on each restaurant's hours, so the "Opens tomorrow at 12 pm" that appears on ones that are closed is [hardcoded in the RestaurantCard](https://github.com/BriceShatzer/munchies/blob/main/app/components/restaurant/RestaurantCard.tsx#L63). Ideally, the hours for each restaurant would be included as part of the restaurant list response, but could also potentially be part off a more robust `.../api/open/{id}` endpoint.   
+- The [swagger docs](https://work-test-web-2024-eze6j4scpq-lz.a.run.app/api-docs/#/default/get_price_range__id_) about the price api appears to be is incomplete. There doesn't appear to be any mention of the ability to get all the available price options by calling the path `.../price-range/`     
 - We currently have to query for each restaurant's open status individually. Ideally, the open status would be included in the restaurant list response. Alternatively, the `.../api/open/{id}` endpoint could be upgraded to support an empty call (`.../api/open/`) that returns a collection of restaurant IDs with their corresponding open status.
 - All of the image files are massive.
 
 
 Things that I'd spend more time on:  
 - The font doesn't feel right, (on the mobile splash in particular). I definitely want to dig deeper into [using macOS's system font](https://stackoverflow.com/a/36412339/1608016)  
-- There is currently no sort of rate limiting for anything anywhere, so implement either a middleware to deal with it or ensure infrastructure is in place to prevent those issues from even reaching the app. 
+- There is currently no sort of rate limiting for anything anywhere, so I'd want to implementing either a middleware to deal with it or ensure infrastructure is in place to prevent those issues from even reaching the app. 
 - Those image file sizes are brutal on load. Something would need to be done about those. 
 
 
