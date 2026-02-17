@@ -32,7 +32,6 @@ export default function CategoryCarousel({
               alt={filter.name}
               width={80}
               height={80}
-              unoptimized
             />
           </div>
         </button>

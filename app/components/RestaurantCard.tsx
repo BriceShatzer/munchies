@@ -56,7 +56,6 @@ export default function RestaurantCard({
           alt={restaurant.name}
           width={160}
           height={160}
-          unoptimized
           className={styles.image}
         />
       </div>
