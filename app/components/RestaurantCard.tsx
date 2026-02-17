@@ -6,7 +6,6 @@ import { Restaurant } from "@/lib/types";
 
 interface RestaurantCardProps {
   restaurant: Restaurant;
-  isOpen: boolean | null;
 }
 
 function formatDeliveryTime(minutes: number): string {
@@ -22,8 +21,8 @@ function formatDeliveryTime(minutes: number): string {
 
 export default function RestaurantCard({
   restaurant,
-  isOpen,
 }: RestaurantCardProps) {
+  const isOpen = restaurant.is_open ?? null;
   const closed = isOpen === false;
 
   return (

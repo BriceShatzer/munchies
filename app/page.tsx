@@ -4,6 +4,7 @@ import {
   RestaurantsResponse,
   FiltersResponse,
   PriceRange,
+  OpenStatusResponse,
 } from "@/lib/types";
 
 async function getData() {
@@ -14,8 +15,23 @@ async function getData() {
       fetchWithCache<PriceRange[]>("/price-range", "price-range:all"),
     ]);
 
+  const restaurants = restaurantsResult.data.restaurants || [];
+
+  const openStatuses = await Promise.all(
+    restaurants.map((r) =>
+      fetchWithCache<OpenStatusResponse>(`/open/${r.id}`, `open:${r.id}`)
+        .then((res) => res.data.is_open)
+        .catch(() => false)
+    )
+  );
+
+  const restaurantsWithStatus = restaurants.map((restaurant, i) => ({
+    ...restaurant,
+    is_open: openStatuses[i],
+  }));
+
   return {
-    restaurants: restaurantsResult.data.restaurants || [],
+    restaurants: restaurantsWithStatus,
     filters: filtersResult.data.filters || [],
     priceRanges: priceRangesResult.data || [],
   };

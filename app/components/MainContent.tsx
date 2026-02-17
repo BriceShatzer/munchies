@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import styles from "./MainContent.module.css";
 import Header from "./Header";
 import FilterSidebar from "./FilterSidebar";
@@ -32,31 +32,6 @@ export default function MainContent({
     []
   );
   const [selectedPriceRanges, setSelectedPriceRanges] = useState<string[]>([]);
-  const [openStatuses, setOpenStatuses] = useState<Record<string, boolean>>({});
-
-  // Fetch open status for all restaurants
-  useEffect(() => {
-    async function fetchOpenStatuses() {
-      const results = await Promise.allSettled(
-        restaurants.map(async (r) => {
-          const res = await fetch(`/api/open/${r.id}`);
-          if (!res.ok) return { id: r.id, isOpen: false };
-          const data = await res.json();
-          return { id: r.id, isOpen: data.is_currently_open };
-        })
-      );
-
-      const statuses: Record<string, boolean> = {};
-      for (const result of results) {
-        if (result.status === "fulfilled") {
-          statuses[result.value.id] = result.value.isOpen;
-        }
-      }
-      setOpenStatuses(statuses);
-    }
-
-    fetchOpenStatuses();
-  }, [restaurants]);
 
   const toggleCategory = useCallback((id: string) => {
     setSelectedCategories((prev) =>
@@ -155,7 +130,6 @@ export default function MainContent({
             />
             <RestaurantGrid
               restaurants={filteredRestaurants}
-              openStatuses={openStatuses}
             />
           </main>
         </div>

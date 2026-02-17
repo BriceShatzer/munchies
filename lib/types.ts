@@ -17,6 +17,7 @@ export interface Restaurant {
   image_url: string;
   delivery_time_minutes: number;
   price_range_id: string;
+  is_open?: boolean;
 }
 
 export interface FiltersResponse {
@@ -33,5 +34,5 @@ export interface RestaurantsResponse {
 
 export interface OpenStatusResponse {
   restaurant_id: string;
-  is_currently_open: boolean;
+  is_open: boolean;
 }
